@@ -1,0 +1,35 @@
+name: CI
+on: [push, pull_request]
+jobs:
+  python-templates:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install numpy scipy scikit-learn pandas xgboost lightgbm shap pygam pykrige
+      - name: Run tested templates (must exit 0)
+        run: |
+          python skills/dsm-model-fit/templates/model_fit_rk_qrf.py
+          python skills/dsm-model-fit/templates/model_zoo.py
+          python skills/dsm-model-fit/templates/transfer_learning.py
+          python skills/dsm-sampling-design/templates/sampling_design.py
+          python skills/dsm-validation/templates/validation_engine.py
+          python skills/dsm-harmonization/templates/harmonize.py
+          python skills/dsm-explainability/templates/explain.py
+          python skills/dsm-covariate-prep/templates/fetch_covariates.py   # dry-run
+  r-templates:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: r-lib/actions/setup-r@v2
+      - name: Install R deps
+        run: Rscript -e 'install.packages(c("ranger","gstat","sp","randomForest","e1071"), repos="https://cloud.r-project.org")'
+      - name: Run R templates (tested subset)
+        run: |
+          Rscript skills/dsm-model-fit/templates/model_fit_rk_qrf.R
+          Rscript skills/dsm-model-fit/templates/model_zoo.R

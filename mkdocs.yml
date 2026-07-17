@@ -1,0 +1,26 @@
+site_name: dsm-tools
+site_description: Literature-grounded Claude skills for digital soil mapping
+theme:
+  name: material
+  palette:
+    primary: brown
+nav:
+  - Home: index.md
+  - Getting started: getting-started.md
+  - Skills:
+      - Site assessment (orchestrator): skills/site-assessment.md
+      - Covariate prep: skills/covariate-prep.md
+      - Sampling design: skills/sampling-design.md
+      - Harmonization: skills/harmonization.md
+      - Model fit: skills/model-fit.md
+      - Validation: skills/validation.md
+      - Uncertainty: skills/uncertainty.md
+      - Explainability: skills/explainability.md
+      - Methods doc: skills/methods-doc.md
+      - Lit watch: skills/lit-watch.md
+  - References: references.md
+markdown_extensions:
+  - admonition
+  - pymdownx.superfences
+  - pymdownx.arithmatex:
+      generic: true
